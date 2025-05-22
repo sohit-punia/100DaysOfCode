@@ -1,0 +1,32 @@
+Given the head of a singly linked list, return the middle node of the linked list.
+
+If there are two middle nodes, return the second middle node
+
+Answer:-
+
+   int getlenght(ListNode* head){
+        int cnt = 0;
+        ListNode* ptr = head;
+        while(ptr->next != NULL){
+            ptr = ptr->next;
+            cnt++;
+        }
+        return cnt;
+    }
+    ListNode* middleNode(ListNode* head) {
+        int size = getlenght(head);
+        int mid = (size + 1) / 2;
+        ListNode* ptr = head;
+        int cnt = 0;
+        while(cnt < mid){
+            ptr = ptr->next;
+            cnt++;
+        }
+       ListNode* midptr = ptr;
+       while(ptr!= NULL){
+        cout<< ptr->val <<" ";
+        ptr = ptr->next;
+       }
+       return midptr;
+        
+    }
