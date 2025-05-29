@@ -1,0 +1,15 @@
+power of four , return true if a given number is power of 4 else return false
+
+Answer:-
+
+bool isPowerOfFour(int n){
+if( n <= 0){
+return false;
+}
+if( n == 1) {
+return true;
+}
+
+return (n % 4 ==0) && (isPowerOfFour(n/4));
+
+}
