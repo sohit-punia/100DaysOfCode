@@ -1,0 +1,60 @@
+Given a string s, find the length of the longest substring without duplicate characters
+
+Answer:-
+
+class Solution {
+private:
+    bool canFind(const string& s, int L) {
+        int n = s.size();
+        if (L > n) return false;
+
+        vector<int> count(256, 0);
+        int duplicates = 0;
+
+        for (int i = 0; i < L; ++i) {
+            char c = s[i];
+            count[c] = count[c] + 1;
+            if (count[c] == 2) {
+                duplicates = duplicates + 1;
+            }
+        }
+        if (duplicates == 0) return true;
+
+        for (int i = L; i < n; ++i) {
+            char oldChar = s[i - L];
+            int oldCount = count[oldChar];
+            count[oldChar] = count[oldChar] - 1;
+            if (oldCount == 2) {
+                duplicates = duplicates - 1;
+            }
+            char newChar = s[i];
+            count[newChar] = count[newChar] + 1;
+            if (count[newChar] == 2) {
+                duplicates = duplicates + 1;
+            }
+            if (duplicates == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+public:
+    int lengthOfLongestSubstring(string s) {
+        int low = 1;
+        int high = s.size();
+        int best = 0;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (canFind(s, mid)) {
+                best = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return best;
+    }
+};
