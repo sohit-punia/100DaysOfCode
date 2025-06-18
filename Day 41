@@ -1,0 +1,21 @@
+Permutation :-Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+
+Answer:-
+
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> perms = { {} };
+
+        for (int num : nums) {
+            vector<vector<int>> nextPerms; 
+            for (auto &p : perms) {
+                for (int i = 0; i <= (int)p.size(); ++i){
+                    auto newP = p; 
+                    newP.insert(newP.begin() + i, num);
+                    nextPerms.push_back(newP);
+                }
+            }
+            perms = std::move(nextPerms);
+        }
+        return perms;
+        
+    }
