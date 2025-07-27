@@ -1,0 +1,24 @@
+Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+
+class Solution {
+    TreeNode* BST(vector<int> v , int left , int right){
+        if(left > right) return NULL;
+        int mid = left + (right-left)/2;
+
+        TreeNode* node = new TreeNode(v[mid]);
+        node->left = BST(v , left , mid-1);
+        node->right = BST(v , mid +1 , right);
+        return node;
+
+    }
+public:
+    TreeNode* sortedListToBST(ListNode* head) {
+        vector<int> v;
+        while(head){
+            v.push_back(head->val);
+            head = head->next;
+        }
+        return BST(v , 0 , v.size() -1);
+        
+    }
+};
