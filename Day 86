@@ -1,0 +1,26 @@
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+
+The path sum of a path is the sum of the node's values in the path.
+
+Given the root of a binary tree, return the maximum path sum of any non-empty path.
+
+
+
+class Solution {
+    int maxSum(TreeNode* root , int &maximum){
+      if(root == NULL) return 0;
+        int leftSum = std::max(0, maxSum(root->left, maximum));
+        int rightSum = std::max(0, maxSum(root->right, maximum));
+
+        maximum = std::max(maximum ,leftSum + rightSum + root->val);
+        return root->val + std::max(leftSum ,rightSum );
+    }
+public:
+    int maxPathSum(TreeNode* root) {
+
+        int maximum = INT_MIN;
+        maxSum(root , maximum);
+        return maximum;
+    
+    }
+};
